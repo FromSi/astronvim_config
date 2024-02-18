@@ -18,7 +18,7 @@ return {
   },
 
   -- Set colorscheme to use
-  colorscheme = "astrodark",
+  colorscheme = "onedark_dark",
 
   -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
@@ -56,7 +56,7 @@ return {
 
   -- Configure require("lazy").setup() options
   lazy = {
-    defaults = { lazy = true },
+    defaults = { lazy = false },
     performance = {
       rtp = {
         -- customize default disabled vim plugins
@@ -81,5 +81,16 @@ return {
     --     ["~/%.config/foo/.*"] = "fooscript",
     --   },
     -- }
+
+    vim.api.nvim_create_augroup("neotree", {})
+    vim.api.nvim_create_autocmd("UiEnter", {
+      desc = "Open Neotree automatically",
+      group = "neotree",
+      callback = function()
+        if vim.fn.argc() == 0 then
+          vim.cmd "Neotree toggle"
+        end
+      end,
+    })
   end,
 }
